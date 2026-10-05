@@ -1,0 +1,8 @@
+{
+  "name":"sportbet-demo-full",
+  "version":"2.0.0",
+  "private":true,
+  "description":"Educational sports betting simulation with virtual money only",
+  "scripts":{"start":"node server/server.js","dev":"node --watch server/server.js","seed":"node server/seed.js"},
+  "dependencies":{"express":"^5.1.0","pg":"^8.16.3","bcryptjs":"^3.0.2","jsonwebtoken":"^9.0.2","dotenv":"^17.2.3"}
+}

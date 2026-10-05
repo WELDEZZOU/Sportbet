@@ -1,0 +1,29 @@
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: sportbet
+      POSTGRES_USER: sportbet
+      POSTGRES_PASSWORD: sportbet
+    ports:
+      - "5432:5432"
+    volumes:
+      - sportbet_pg:/var/lib/postgresql/data
+      - ./db/schema.sql:/docker-entrypoint-initdb.d/001-schema.sql:ro
+  app:
+    image: node:22-alpine
+    working_dir: /app
+    command: sh -c "npm install && npm start"
+    environment:
+      PORT: 3000
+      DATABASE_URL: postgresql://sportbet:sportbet@db:5432/sportbet
+      JWT_SECRET: change-this-in-production
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./:/app
+    depends_on:
+      - db
+volumes:
+  sportbet_pg:
